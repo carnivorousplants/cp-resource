@@ -110,7 +110,7 @@ sarracenia_df <- sarracenia_all_df %>%
 # You can find more info about the cool DT::datatable under "https://rstudio.github.io/DT/"
 (t <- DT::datatable(sarracenia_all_df %>% 
                       filter(source == "1_mine") %>%
-                      dplyr::select(cloneNameLink, scientificName, subspecies, variety, county, state, country, date, old_code, pot1_code, pot2_code, comment, supplyer) %>%
+                      dplyr::select(cloneNameLink, scientificName, subspecies, variety, county, state, country, date, original_description, old_code, pot1_code, pot2_code, comment, supplyer) %>%
                      mutate(comment = iconv(.$comment, "UTF-8", "UTF-8", sub='')),
                    class = "display nowrap",
                    escape = F,
