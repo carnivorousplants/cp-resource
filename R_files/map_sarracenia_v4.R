@@ -71,8 +71,7 @@ sarracenia <- read.csv("./plant_lists/sarracenia_withCounties.csv") %>%
 
 # Importing the Sarracenia I already have
 my_plants <- read_csv("./plant_lists/Sarracenia_list.csv") %>% 
-  mutate(source = "1_mine") %>%
-  rename(date = year)
+  mutate(source = "1_mine")
 
 # Importing the Sarracenia I know where to get
 to_acquire <- read_csv("./plant_lists/to_acquire.csv")
@@ -80,7 +79,7 @@ to_acquire <- read_csv("./plant_lists/to_acquire.csv")
 # Merging the datasets
 sarracenia_all_df <- my_plants %>%
   bind_rows(., to_acquire) %>%
-  bind_rows(., sarracenia) %>%
+  #bind_rows(., sarracenia) %>%
   mutate(species = gsub("leucopyhlla", "leucophylla", species)) %>%
   filter(species != "x moorei") %>%
   arrange(genus, species, subspecies, country, state, county, source) %>%
@@ -111,7 +110,7 @@ sarracenia_df <- sarracenia_all_df %>%
 # You can find more info about the cool DT::datatable under "https://rstudio.github.io/DT/"
 (t <- DT::datatable(sarracenia_all_df %>% 
                       filter(source == "1_mine") %>%
-                      dplyr::select(cloneNameLink, scientificName, subspecies, variety, county, state, country, year, old_code, pot1_code, pot2_code, comment, supplyer) %>%
+                      dplyr::select(cloneNameLink, scientificName, subspecies, variety, county, state, country, date, old_code, pot1_code, pot2_code, comment, supplyer) %>%
                      mutate(comment = iconv(.$comment, "UTF-8", "UTF-8", sub='')),
                    class = "display nowrap",
                    escape = F,
